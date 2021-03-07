@@ -1,0 +1,2670 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2020.2">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="599" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="7" />
+          <Fields>
+            <Field name="URL" />
+            <Field name="Endpoint" />
+          </Fields>
+          <Data>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/serverdataconnections/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/collections/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/insights/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/schedules/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/subscriptions/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/systemdataconnections/</c>
+            </r>
+            <r>
+              <c>http://localhost/gallery</c>
+              <c>/api/admin/v1/users/</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Build the URL</AnnotationText>
+          <DefaultAnnotationText>Build the URL</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="24" source="TextInput:" type="String" />
+            <Field name="Endpoint" size="36" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="366" y="599" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" field="oauth_timestamp" size="1073741823" type="V_WString" />
+            <FormulaField expression="PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" field="oauth_nonce" size="1073741823" type="V_WString" />
+            <FormulaField expression="//&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" field="oauth_consumer_key" size="1073741823" type="V_WString" />
+            <FormulaField expression="//&quot;adminAPISecret&quot;&#xA;&quot;fbce462c6b8f1e7f60c7c48154a46f9ed844b0e8276144c92d5dddd95c58ee37&quot;" field="oauth_consumer_secret" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;HMAC-SHA1&quot;" field="oauth_signature_method" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;GET&quot;" field="http_method" size="1073741823" type="V_WString" />
+            <FormulaField expression="Trim([URL],&quot;1&quot;)" field="url_encoded" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;&quot;" field="oauth_token" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;1.0&quot;" field="oauth_version" size="1073741823" type="V_WString" />
+            <FormulaField expression="[oauth_consumer_secret]+&quot;&amp;&quot;" field="key" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Build request URL and other necessary values such as nonce and timestamp.</AnnotationText>
+          <DefaultAnnotationText>oauth_timestamp = DateTimeDiff(DateTimeNow(), DateTimeToLocal("1970-01-01 00:00:...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_consumer_secret" size="1073741823" source="Formula: //&quot;adminAPISecret&quot;&#xA;&quot;fbce462c6b8f1e7f60c7c48154a46f9ed844b0e8276144c92d5dddd95c58ee37&quot;" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="http_method" size="1073741823" source="Formula: &quot;GET&quot;" type="V_WString" />
+            <Field name="url_encoded" size="1073741823" source="Formula: Trim([URL],&quot;1&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="key" size="1073741823" source="Formula: [oauth_consumer_secret]+&quot;&amp;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="162" y="599" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="URL" selected="True" type="V_String" size="200000" />
+            <SelectField field="Endpoint" selected="True" size="59" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update URL field length and type so we don't potentially truncate data later.</AnnotationText>
+          <DefaultAnnotationText>Update URL field length and type so we don't potentially truncate data later.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="TextInput:" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings>
+        <Position x="822" y="611" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="stringField">Hash_Me</Value>
+          <Value name="keyField">key</Value>
+          <Value name="algorithm">sha1</Value>
+          <Value name="output_base64">True</Value>
+          <Value name="percentEncode">True</Value>
+          <Value name="output_hex">False</Value>
+          <Value name="outputFieldName">oauth_signature</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>HMAC the concatenated string to create the oauth_signature.</AnnotationText>
+          <DefaultAnnotationText>HMAC the concatenated string to create the oauth_signature.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output23">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_consumer_secret" size="1073741823" source="Formula: //&quot;adminAPISecret&quot;&#xA;&quot;fbce462c6b8f1e7f60c7c48154a46f9ed844b0e8276144c92d5dddd95c58ee37&quot;" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="http_method" size="1073741823" source="Formula: &quot;GET&quot;" type="V_WString" />
+            <Field name="url_encoded" size="1073741823" source="Formula: Trim([URL],&quot;1&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="key" size="1073741823" source="Formula: [oauth_consumer_secret]+&quot;&amp;&quot;" type="V_WString" />
+            <Field name="Hash_Me" size="1073741823" source="Formula: [http_method]+&quot;&amp;&quot;+[url_encoded]+&quot;&amp;&quot;+&quot;oauth_consumer_key%3D&quot;+[oauth_consumer_key]+&quot;%26&quot;+&quot;oauth_nonce%3D&quot;+[oauth_nonce]+&quot;%26&quot;+&quot;oauth_signature_method%3D&quot;+[oauth_signature_method]+&quot;%26&quot;+&quot;oauth_timestamp%3D&quot;+[oauth_timestamp]+&quot;%26&quot;+&quot;oauth_version%3D&quot;+[oauth_version]" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="_externals\1\hmac_encrypt.yxmc" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.FindReplace.FindReplace">
+        <Position x="570" y="611" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldFind>url_encoded</FieldFind>
+          <FieldSearch>FIND</FieldSearch>
+          <ReplaceFoundField>REPL</ReplaceFoundField>
+          <FindMode>FindAny</FindMode>
+          <NoCase value="False" />
+          <MatchWholeWord value="False" />
+          <ReplaceMode>Replace</ReplaceMode>
+          <ReplaceMultipleFound value="True" />
+          <ReplaceAppendFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Percent encode characters in URL prior to HMAC.</AnnotationText>
+          <DefaultAnnotationText>Percent encode characters in URL prior to HMAC.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_consumer_secret" size="1073741823" source="Formula: //&quot;adminAPISecret&quot;&#xA;&quot;fbce462c6b8f1e7f60c7c48154a46f9ed844b0e8276144c92d5dddd95c58ee37&quot;" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="http_method" size="1073741823" source="Formula: &quot;GET&quot;" type="V_WString" />
+            <Field name="url_encoded" size="1073741823" source="Formula: Trim([URL],&quot;1&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="key" size="1073741823" source="Formula: [oauth_consumer_secret]+&quot;&amp;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFindReplace" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="702" y="611" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[http_method]+&quot;&amp;&quot;+[url_encoded]+&quot;&amp;&quot;+&quot;oauth_consumer_key%3D&quot;+[oauth_consumer_key]+&quot;%26&quot;+&quot;oauth_nonce%3D&quot;+[oauth_nonce]+&quot;%26&quot;+&quot;oauth_signature_method%3D&quot;+[oauth_signature_method]+&quot;%26&quot;+&quot;oauth_timestamp%3D&quot;+[oauth_timestamp]+&quot;%26&quot;+&quot;oauth_version%3D&quot;+[oauth_version]" field="Hash_Me" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Create concatenated string to HMAC encode.</AnnotationText>
+          <DefaultAnnotationText>Hash_Me = [http_method]+"&amp;"+[url_encoded]+"&amp;"+"oauth_consumer_key%3D"+[oauth_con...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_consumer_secret" size="1073741823" source="Formula: //&quot;adminAPISecret&quot;&#xA;&quot;fbce462c6b8f1e7f60c7c48154a46f9ed844b0e8276144c92d5dddd95c58ee37&quot;" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="http_method" size="1073741823" source="Formula: &quot;GET&quot;" type="V_WString" />
+            <Field name="url_encoded" size="1073741823" source="Formula: Trim([URL],&quot;1&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="key" size="1073741823" source="Formula: [oauth_consumer_secret]+&quot;&amp;&quot;" type="V_WString" />
+            <Field name="Hash_Me" size="1073741823" source="Formula: [http_method]+&quot;&amp;&quot;+[url_encoded]+&quot;&amp;&quot;+&quot;oauth_consumer_key%3D&quot;+[oauth_consumer_key]+&quot;%26&quot;+&quot;oauth_nonce%3D&quot;+[oauth_nonce]+&quot;%26&quot;+&quot;oauth_signature_method%3D&quot;+[oauth_signature_method]+&quot;%26&quot;+&quot;oauth_timestamp%3D&quot;+[oauth_timestamp]+&quot;%26&quot;+&quot;oauth_version%3D&quot;+[oauth_version]" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxConnectorGui.Download.Download">
+        <Position x="1158" y="615" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <URLField>URL</URLField>
+          <OutputMode>String</OutputMode>
+          <CodePage>65001</CodePage>
+          <EncodeURLs value="False" />
+          <Headers>
+            <NameValues />
+            <Fields orderChanged="False">
+              <Field name="URL" selected="False" />
+              <Field name="oauth_consumer_key" selected="False" />
+              <Field name="oauth_nonce" selected="False" />
+              <Field name="oauth_signature_method" selected="False" />
+              <Field name="oauth_timestamp" selected="False" />
+              <Field name="oauth_token" selected="False" />
+              <Field name="oauth_version" selected="False" />
+              <Field name="oauth_signature" selected="False" />
+              <Field name="query" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </Fields>
+          </Headers>
+          <Payload>
+            <HTTPAction>GET</HTTPAction>
+            <QueryStringBodyMode>Field</QueryStringBodyMode>
+            <Field>query</Field>
+          </Payload>
+          <UserName />
+          <Password />
+          <numConnections>1</numConnections>
+          <Timeout>600</Timeout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Request the package from the API.</AnnotationText>
+          <DefaultAnnotationText>Request the package from the API.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxDownload" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="918" y="611" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="URL" selected="True" />
+            <SelectField field="oauth_consumer_key" selected="True" />
+            <SelectField field="oauth_nonce" selected="True" />
+            <SelectField field="oauth_signature_method" selected="True" />
+            <SelectField field="oauth_timestamp" selected="True" />
+            <SelectField field="oauth_token" selected="True" />
+            <SelectField field="oauth_version" selected="True" />
+            <SelectField field="oauth_signature" selected="True" />
+            <SelectField field="oauth_consumer_secret" selected="False" />
+            <SelectField field="http_method" selected="False" />
+            <SelectField field="url_encoded" selected="False" />
+            <SelectField field="Hash_Me" selected="False" />
+            <SelectField field="key" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Remove excess data.</AnnotationText>
+          <DefaultAnnotationText>Remove excess data.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1026" y="603" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" field="query" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Build the API Query</AnnotationText>
+          <DefaultAnnotationText>query = "oauth_consumer_key="+[oauth_consumer_key]+"&amp;"+"oauth_nonce="+[oauth_non...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="342" y="827" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="FIND" selected="True" />
+            <SelectField field="REPL" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="66" y="827" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>unicode_num</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>unicode_num &lt;= 255</Expression_Cond>
+          <Expression_Loop>unicode_num + 1</Expression_Loop>
+          <RecordCount value="0" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+          <RecordCount value="256" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Generate list of characters to percent encode.</AnnotationText>
+          <DefaultAnnotationText>Generate list of characters to percent encode.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="150" y="827" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="CharFromInt(toNumber([unicode_num]))" field="FIND" size="64" type="String" />
+            <FormulaField expression="'%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" field="REPL" size="64" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText />
+          <DefaultAnnotationText>FIND = CharFromInt(toNumber([unicode_num]))
+REPL = '%'+Uppercase(PadLeft(IntToHe...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="246" y="827" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>not(regex_match([FIND],'[\-\.0-9A-Z_a-z~]'))</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText />
+          <DefaultAnnotationText>not(regex_match([FIND],'[\-\.0-9A-Z_a-z~]'))</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="599" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="TrimRight([URL])" field="URL" size="200000" type="V_String" />
+            <FormulaField expression="if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" field="URL" size="200000" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Clean up URL.</AnnotationText>
+          <DefaultAnnotationText>URL = TrimRight([URL])
+URL = if EndsWith([URL], "/")
+then ToString(TrimRight([UR...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="Endpoint" size="59" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1206" y="503" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\temp\temp 20.2 folder^\Engine_23876_598b608ef28f4246b05d82953e1c1db7_\Engine_24100_3c0fd49bc9b8404db4ac4e410c272cee_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1350" y="606" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>!contains([DownloadHeaders], "200 OK")</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Check to see if the request was successful. If the request failed, pass to the true side, if passed then pass to the false side.</AnnotationText>
+          <DefaultAnnotationText>!contains([DownloadHeaders], "200 OK")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JSONParse.JSONParse">
+        <Position x="1482" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JSON_Field>DownloadData</JSON_Field>
+          <IncludeInOutput value="False" />
+          <SingleField value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJSONParse" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerTable.PortfolioComposerTable">
+        <Position x="1866" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TableMode>Basic</TableMode>
+          <GroupingFields orderChanged="False" />
+          <Width>100%</Width>
+          <ShowHeader value="True" />
+          <ShowBarGraph value="False" />
+          <TableFields orderChanged="False">
+            <Field name="connectionId" selected="True" Alignment="Left" Alias="Id (Mongo)" />
+            <Field name="connectionName" selected="True" Alignment="Left" Alias="Name" />
+            <Field name="connectionString" selected="True" Alignment="Left" Alias="Connection String" />
+            <Field name="connectionType" selected="True" Alignment="Left" Alias="Type" />
+            <Field name="subscriptionCount" selected="True" Alignment="Center" Alias="Subscription Count" />
+            <Field name="userCount" selected="True" Alignment="Center" Width="" Alias="User Count" />
+            <Field name="RecId" selected="False" />
+            <Field name="*Unknown" selected="False" />
+          </TableFields>
+          <TableStyles>
+            <Style Name="Data" Font="Arial" Size="8" TextColor="#000000" BackColor="#ffffff" AltColor="#f0f0f0" RowGroup="1" />
+            <Style Name="Header" Font="Arial" Size="10" TextColor="#000000" BackColor="#dbdbdb" />
+            <Style Name="Borders" Width="1" DataColor="#000000" HeaderColor="#000000" RowBorder="None" BasicColBorder="Default (Use Per Column Setting)" />
+            <Style Name="Table" CellPadding="0" ColumnPadding="0" TableBorder="true" Width="1" BorderColor="#000000" />
+          </TableStyles>
+          <StyleRules />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1266" y="618" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="1578" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>JSON_Name</Field>
+          <RegExExpression value="(\d+)\.(.+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>JSON_Name</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RecId" type="Int16" size="2" />
+            <Field field="headers" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>URL_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="1674" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="RecId" />
+          </GroupFields>
+          <HeaderField field="headers" />
+          <DataField field="JSON_ValueString" />
+          <Methods>
+            <Method method="First" />
+            <Separator>,</Separator>
+            <FieldSize value="2048" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="CrossTab:Group:First:" type="Int16" />
+            <Field name="connectionId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionName" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionType" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="subscriptionCount" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="userCount" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1770" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="CrossTab:Group:First:" type="Int16" />
+            <Field name="connectionId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionName" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="connectionType" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="subscriptionCount" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="userCount" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+        <Position x="2154" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileType>pdf</TempFileType>
+          <BatchMode value="False" />
+          <DataField>Layout</DataField>
+          <Separator>Continuous</Separator>
+          <EmbedDependencies value="False" />
+          <ShowHeader value="False" />
+          <ShowFooter value="False" />
+          <PortraitMode value="True" />
+          <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+          <DefaultStyles>
+            <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+          </DefaultStyles>
+          <PNGResolution>1</PNGResolution>
+          <PNGLargerAction>squeeze</PNGLargerAction>
+          <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+          <PNGTransparentBG value="False" />
+          <PNGBackColor value="#ffffff" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="1962" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs32 Data Connections\fs24\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Data Connections</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+        <Position x="2058" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupingMode>PerRecord</GroupingMode>
+          <PreserveSourceFields value="False" />
+          <Orientation>V</Orientation>
+          <Separator>Continuous</Separator>
+          <Width>100%</Width>
+          <Height />
+          <BorderStyle Enabled="false" Color="#000000" Width="2" />
+          <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+          <Padding>0</Padding>
+          <LayoutFields orderChanged="True">
+            <Field name="Text" selected="True" Alignment="Center" Width="" />
+            <Field name="Table" selected="True" Alignment="Center" />
+          </LayoutFields>
+          <MergeIntoTable value="False" />
+          <SectionNameForGroup />
+          <SectionNameForAllRecords />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Vertical Layout
+Each Individual Record</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1410" y="786" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>URL</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:07:41</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>serverdataconnections</Operand>
+              <StartDate>2021-03-07 18:07:41</StartDate>
+              <EndDate>2021-03-07 18:07:41</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([URL],"serverdataconnections")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1518" y="870" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>URL</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:10:24</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-03-07 18:10:24</StartDate>
+              <EndDate>2021-03-07 18:10:24</EndDate>
+              <Operand>collections</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([URL],"collections")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JSONParse.JSONParse">
+        <Position x="1626" y="894" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JSON_Field>DownloadData</JSON_Field>
+          <IncludeInOutput value="False" />
+          <SingleField value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJSONParse" />
+    </Node>
+    <Node ToolID="73">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="1722" y="894" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>JSON_Name</Field>
+          <RegExExpression value="(\d+)\.(.+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>JSON_Name</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RecId" type="Int16" size="2" />
+            <Field field="headers" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>URL_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="74">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="2154" y="1146" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="RecId" />
+          </GroupFields>
+          <HeaderField field="headers" />
+          <DataField field="JSON_ValueString" />
+          <Methods>
+            <Method method="First" />
+            <Separator>,</Separator>
+            <FieldSize value="2048" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="CrossTab:Group:First:" type="Int16" />
+            <Field name="collectionId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="dateAdded" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="id" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="ownerId" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1806" y="1050" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>headers</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:15:04</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>users.</Operand>
+              <StartDate>2021-03-07 18:15:04</StartDate>
+              <EndDate>2021-03-07 18:15:04</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([headers],"users.")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="77">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1926" y="1098" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>headers</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:15:26</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>apps.</Operand>
+              <StartDate>2021-03-07 18:15:26</StartDate>
+              <EndDate>2021-03-07 18:15:26</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([headers],"apps.")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="2022" y="1134" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>headers</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:15:26</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>schedules.</Operand>
+              <StartDate>2021-03-07 18:15:26</StartDate>
+              <EndDate>2021-03-07 18:15:26</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([headers],"schedules.")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="79">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="1914" y="1002" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>headers</Field>
+          <RegExExpression value="users\.(\d+)\.(.+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>headers</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="user_recId" type="Int16" size="2" />
+            <Field field="headers_user" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>URL_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+            <Field description="RegEx: Parsed from headers" name="user_recId" source="RegEx: Parsed from headers" type="Int16" />
+            <Field description="RegEx: Parsed from headers" name="headers_user" size="1073741823" source="RegEx: Parsed from headers" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="80">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="2022" y="1038" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>headers</Field>
+          <RegExExpression value="apps\.(\d+)\.(.+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>headers</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="apps_recId" type="Int16" size="2" />
+            <Field field="headers_apps" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>URL_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+            <Field description="RegEx: Parsed from headers" name="apps_recId" source="RegEx: Parsed from headers" type="Int16" />
+            <Field description="RegEx: Parsed from headers" name="headers_apps" size="1073741823" source="RegEx: Parsed from headers" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="2154" y="1062" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>headers</Field>
+          <RegExExpression value="schedules\.(\d+)\.(.+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>headers</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="schedules_recId" type="Int16" size="2" />
+            <Field field="headers_schedules" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>URL_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+            <Field description="RegEx: Parsed from headers" name="schedules_recId" source="RegEx: Parsed from headers" type="Int16" />
+            <Field description="RegEx: Parsed from headers" name="headers_schedules" size="1073741823" source="RegEx: Parsed from headers" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="82">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1818" y="894" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>JSON_Name</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-03-07 18:24:01</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>.activeDirectoryObject.name</Operand>
+              <StartDate>2021-03-07 18:24:01</StartDate>
+              <EndDate>2021-03-07 18:24:01</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contains([JSON_Name],".activeDirectoryObject.name")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+            <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+            <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+            <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+            <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+            <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+            <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+            <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="83">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1998" y="870" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="RecId" action="GroupBy" rename="Collection_recId" />
+            <SummarizeField field="JSON_ValueString" action="Count" rename="Users Count" />
+            <SummarizeField field="JSON_ValueString" action="Concat" rename="Users">
+              <Concat_Start />
+              <Separator><![CDATA[, ]]></Separator>
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="Collection_recId" source="Summarize: GroupBy - RecId" type="Int16" />
+            <Field name="Users Count" source="Summarize: Count - JSON_ValueString" type="Int64" />
+            <Field name="Users" size="1073741823" source="Summarize: Concat - JSON_ValueString" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="84">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1914" y="870" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="URL" selected="False" />
+            <SelectField field="oauth_consumer_key" selected="False" />
+            <SelectField field="oauth_nonce" selected="False" />
+            <SelectField field="oauth_signature_method" selected="False" />
+            <SelectField field="oauth_timestamp" selected="False" />
+            <SelectField field="oauth_token" selected="False" />
+            <SelectField field="oauth_version" selected="False" />
+            <SelectField field="oauth_signature" selected="False" />
+            <SelectField field="query" selected="False" />
+            <SelectField field="DownloadHeaders" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="RegEx: Parsed from JSON_Name" type="Int16" />
+            <Field description="RegEx: Parsed from JSON_Name" name="headers" size="1073741823" source="RegEx: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="85">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="2274" y="882" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecId" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Collection_recId" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_dateAdded" selected="False" input="Left_" />
+                <SelectField field="Right_Collection_recId" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="CrossTab:Group:First:" type="Int16" />
+            <Field name="collectionId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="id" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="ownerId" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecId" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="RecId" source="CrossTab:Group:First:" type="Int16" />
+            <Field name="collectionId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="id" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="ownerId" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="Users Count" source="Summarize: Count - JSON_ValueString" type="Int64" />
+            <Field name="Users" size="1073741823" source="Summarize: Concat - JSON_ValueString" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from JSON_Name" name="Collection_recId" source="Summarize: GroupBy - RecId" type="Int16" />
+            <Field name="Users Count" source="Summarize: Count - JSON_ValueString" type="Int64" />
+            <Field name="Users" size="1073741823" source="Summarize: Concat - JSON_ValueString" type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Collection_recId" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="86">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerTable.PortfolioComposerTable">
+        <Position x="2382" y="906" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TableMode>Basic</TableMode>
+          <GroupingFields orderChanged="False" />
+          <Width>100%</Width>
+          <ShowHeader value="True" />
+          <ShowBarGraph value="False" />
+          <TableFields orderChanged="False">
+            <Field name="id" selected="True" Alignment="Left" />
+            <Field name="name" selected="True" Alignment="Left" Width="" />
+            <Field name="ownerId" selected="True" Alignment="Left" />
+            <Field name="Users Count" selected="True" Alignment="Right" />
+            <Field name="Users" selected="True" Alignment="Left" />
+            <Field name="RecId" selected="False" />
+            <Field name="collectionId" selected="False" />
+            <Field name="*Unknown" selected="False" />
+          </TableFields>
+          <TableStyles>
+            <Style Name="Data" Font="Arial" Size="8" TextColor="#000000" BackColor="#ffffff" AltColor="#f0f0f0" RowGroup="1" />
+            <Style Name="Header" Font="Arial" Size="10" TextColor="#000000" BackColor="#dbdbdb" />
+            <Style Name="Borders" Width="1" DataColor="#000000" HeaderColor="#000000" RowBorder="None" BasicColBorder="Default (Use Per Column Setting)" />
+            <Style Name="Table" CellPadding="0" ColumnPadding="0" TableBorder="true" Width="1" BorderColor="#000000" />
+          </TableStyles>
+          <StyleRules />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin" />
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="2478" y="906" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs32 Collections\fs24\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Collections</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecId" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="88">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+        <Position x="2586" y="906" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupingMode>PerRecord</GroupingMode>
+          <PreserveSourceFields value="False" />
+          <Orientation>V</Orientation>
+          <Separator>Continuous</Separator>
+          <Width>100%</Width>
+          <Height />
+          <BorderStyle Enabled="false" Color="#000000" Width="2" />
+          <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+          <Padding>0</Padding>
+          <LayoutFields orderChanged="True">
+            <Field name="Text" selected="True" Alignment="Center" Width="" />
+            <Field name="Table" selected="True" Alignment="Center" />
+          </LayoutFields>
+          <MergeIntoTable value="False" />
+          <SectionNameForGroup />
+          <SectionNameForAllRecords />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Vertical Layout
+Each Individual Record</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="2694" y="822" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByPos</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="90">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="2778" y="822" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Layout" action="RptVertical" rename="RptVertical_Layout" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RptVertical_Layout" size="1073741823" source="Report:Layout:Summarize:RptVertical" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="91">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="2874" y="822" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\temp\temp 20.2 folder^\Engine_25560_8b64dbf379954339ac5d5f830a95a91a_\Engine_24100_f2f24d653b4e4127a1fe46052b9fbb1a_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1542" y="374" width="277" height="225" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Workflow Error Handling</Caption>
+          <Style TextColor="#314c4a" FillColor="#ff8080" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+            <Position x="1699" y="423" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <When>Last</When>
+              <Filter>!contains([DownloadHeaders], "200 OK")</Filter>
+              <Type>ErrorStop</Type>
+              <Priority>High</Priority>
+              <Transient>False</Transient>
+              <MessageExpression>[DownloadHeaders]+" "+[DownloadData]</MessageExpression>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Output HTTP return code and any messaging from the server as an error.</AnnotationText>
+              <DefaultAnnotationText>Output HTTP return code and any messaging from the server as an error.</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+                <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+                <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+                <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+                <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+                <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+                <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+                <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+                <Field name="DownloadData" size="2147483647" source="BlobConvert: Text - CodePage: 28591" type="V_String" />
+                <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BlobConvert.BlobConvert">
+            <Position x="1567" y="423" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ToBlob value="False" />
+              <from_Field>DownloadData</from_Field>
+              <from_Mode>Text</from_Mode>
+              <from_textCodePage>28591</from_textCodePage>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Convert download data for error messaging to pass to the message tool.</AnnotationText>
+              <DefaultAnnotationText>Convert download data for error messaging to pass to the message tool.</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="URL" size="200000" source="Formula: if EndsWith([URL], &quot;/&quot;)&#xA;then ToString(TrimRight([URL], &quot;/&quot;)) + [Endpoint]&#xA;else [URL] + [Endpoint]&#xA;endif" type="V_String" />
+                <Field name="oauth_consumer_key" size="1073741823" source="Formula: //&quot;adminAPIKey&quot;&#xA;&quot;8D866EB8432DFC5e7cef511a3007da653446cff168ee33a6c8f4099&quot;" type="V_WString" />
+                <Field name="oauth_nonce" size="1073741823" source="Formula: PadLeft(ToString(RandInt(99999999)), 8, &quot;0&quot;)" type="V_WString" />
+                <Field name="oauth_signature_method" size="1073741823" source="Formula: &quot;HMAC-SHA1&quot;" type="V_WString" />
+                <Field name="oauth_timestamp" size="1073741823" source="Formula: DateTimeDiff(DateTimeNow(), DateTimeToLocal(&quot;1970-01-01 00:00:01&quot;),&quot;seconds&quot;)" type="V_WString" />
+                <Field name="oauth_token" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="oauth_version" size="1073741823" source="Formula: &quot;1.0&quot;" type="V_WString" />
+                <Field name="oauth_signature" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+                <Field name="query" size="1073741823" source="Formula: &quot;oauth_consumer_key=&quot;+[oauth_consumer_key]+&quot;&amp;&quot;+&quot;oauth_nonce=&quot;+[oauth_nonce]+&quot;&amp;&quot;+&quot;oauth_signature_method=&quot;+[oauth_signature_method]+&quot;&amp;&quot;+&quot;oauth_timestamp=&quot;+[oauth_timestamp]+&quot;&amp;&quot;+&quot;oauth_token=&quot;+[oauth_token]+&quot;&amp;&quot;+&quot;oauth_version=&quot;+[oauth_version]+&quot;&amp;&quot;+&quot;oauth_signature=&quot;+[oauth_signature]" type="V_WString" />
+                <Field name="DownloadData" size="2147483647" source="BlobConvert: Text - CodePage: 28591" type="V_String" />
+                <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBlobConvert" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1050" y="58" width="391" height="325" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Error Handling</Caption>
+          <Style TextColor="#314c4a" FillColor="#ff8080" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="37">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="1075" y="107" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>IsEmpty([#1])
+Verify Gallery URL is specified.</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="1254" y="109" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!Length([#1]) &gt;= 20 OR CountWords([#1]) &gt; 1 OR isempty([#1])
+Gallery Admin API Key is missing or invalid.</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="41">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="1254" y="217" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!Length([#1]) &gt;= 20 OR CountWords([#1]) &gt; 1 OR isempty([#1])
+Gallery Admin API Secret is missing or invalid.</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="64.99998" y="54" width="719" height="257" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="17">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="89.99998" y="103" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Gallery URL (Including HTTP/HTTPS as well as /gallery if applicable)</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="90.00002" y="227" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Update Cell</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="438" y="107" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Gallery Admin API Key</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="438" y="227" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Update Value</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="618" y="107" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Gallery Admin API Secret</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="24">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="618" y="227" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Update Value</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="7" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="7" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output23" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="5" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="True" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection name="#3" Wireless="True">
+      <Origin ToolID="22" Connection="Action" />
+      <Destination ToolID="2" Connection="Action" />
+    </Connection>
+    <Connection name="#4" Wireless="True">
+      <Origin ToolID="24" Connection="Action" />
+      <Destination ToolID="2" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="True" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="False" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="68" Connection="Output" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="88" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="70" Connection="True" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="70" Connection="False" />
+      <Destination ToolID="71" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="71" Connection="True" />
+      <Destination ToolID="72" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="Output" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="82" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="74" Connection="Output" />
+      <Destination ToolID="85" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="83" Connection="Output" />
+      <Destination ToolID="85" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="76" Connection="False" />
+      <Destination ToolID="77" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="76" Connection="True" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="77" Connection="False" />
+      <Destination ToolID="78" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="77" Connection="True" />
+      <Destination ToolID="80" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="False" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="True" />
+      <Destination ToolID="81" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="82" Connection="True" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="Output" />
+      <Destination ToolID="83" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="85" Connection="Join" />
+      <Destination ToolID="86" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="88" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="Output" />
+      <Destination ToolID="90" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="90" Connection="Output" />
+      <Destination ToolID="91" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="17" Connection="Question" />
+      <Destination ToolID="18" Connection="Question" />
+    </Connection>
+    <Connection name="#1" Wireless="True">
+      <Origin ToolID="17" Connection="Question" />
+      <Destination ToolID="37" Connection="Question" />
+    </Connection>
+    <Connection name="#2" Wireless="True">
+      <Origin ToolID="18" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="21" Connection="Question" />
+      <Destination ToolID="22" Connection="Question" />
+    </Connection>
+    <Connection name="#1" Wireless="True">
+      <Origin ToolID="21" Connection="Question" />
+      <Destination ToolID="40" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="23" Connection="Question" />
+      <Destination ToolID="24" Connection="Question" />
+    </Connection>
+    <Connection name="#1" Wireless="True">
+      <Origin ToolID="23" Connection="Question" />
+      <Destination ToolID="41" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Text Box (17)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Text Box (21)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Text Box (23)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>User</Namespace>
+        <Name>file_prefix</Name>
+        <Value>_placeholder</Value>
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Download Tool - Data connections</Name>
+      <Description>An app (quickly) developed to download workflows from the Admin API as an example.</Description>
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author>Michael Spoula</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="18" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>1/Data/r[1]/c[1]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	1</DynamicConfiguration>
+              <DefaultConfiguration value="True" />
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="22" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>adminAPIKey</ReplaceText>
+              <Destination>2/FormulaFields/FormulaField[@field='oauth_consumer_key']/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="24" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>adminAPISecret</ReplaceText>
+              <Destination>2/FormulaFields/FormulaField[@field='oauth_consumer_secret']/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description>Verify Gallery URL is specified.</Description>
+              <ToolId value="37" />
+              <Expression>IsEmpty([#1])</Expression>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description>Gallery Admin API Key is missing or invalid.</Description>
+              <ToolId value="40" />
+              <Expression>!Length([#1]) &gt;= 20 OR CountWords([#1]) &gt; 1 OR isempty([#1])</Expression>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description>Gallery Admin API Secret is missing or invalid.</Description>
+              <ToolId value="41" />
+              <Expression>!Length([#1]) &gt;= 20 OR CountWords([#1]) &gt; 1 OR isempty([#1])</Expression>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (16)</Name>
+          <ToolId value="16" />
+          <Questions>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Gallery URL (Including HTTP/HTTPS as well as /gallery if applicable)</Description>
+              <Name>Text Box (17)</Name>
+              <ToolId value="17" />
+              <Default>http://localhost/gallery</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Gallery Admin API Key</Description>
+              <Name>Text Box (21)</Name>
+              <ToolId value="21" />
+              <Default />
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Gallery Admin API Secret</Description>
+              <Name>Text Box (23)</Name>
+              <ToolId value="23" />
+              <Default />
+              <Password value="True" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Wizard</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="0" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="60" Selected="False" />
+        <Tool ToolId="5" Selected="False" />
+        <Tool ToolId="67" Selected="True" />
+        <Tool ToolId="91" Selected="False" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

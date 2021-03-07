@@ -1,0 +1,1127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2018.4">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="57" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input2</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="key" />
+                <Field name="string" />
+                <Field name="key5" />
+                <Field name="field1" />
+                <Field name="field3" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>fdfad</c>
+                  <c>1232jkl</c>
+                  <c>fdafd</c>
+                  <c>fdafd</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>fdfda</c>
+                  <c>?fdfadf</c>
+                  <c>dfd</c>
+                  <c />
+                  <c>13243</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="key" size="5" source="TextInput:" type="String" />
+            <Field name="string" size="7" source="TextInput:" type="String" />
+            <Field name="key5" size="5" source="TextInput:" type="String" />
+            <Field name="field1" size="5" source="TextInput:" type="String" />
+            <Field name="field3" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+        <Position x="183" y="63" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>stringField</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+        <Position x="327" y="63" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>keyField</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicSelect.DynamicSelect">
+        <Position x="189" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Formula</Mode>
+          <Expression>[Name] in ("%Question.keyField%","%Question.stringField%")</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>pull out just the string and key to work with for encryption</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="key" size="5" source="TextInput:" type="String" />
+            <Field name="string" size="7" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicSelect" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+        <Position x="279" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RenameMode>Formula</RenameMode>
+          <Fields orderChanged="False">
+            <Field name="key" />
+            <Field name="string" />
+            <Field name="*Unknown" />
+          </Fields>
+          <Expression>switch([_CurrentField_],[_CurrentField_],
+  "%Question.keyField%","keyField",
+  "%Question.stringField%","stringField"
+)</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="keyField" size="5" source="TextInput:" type="String" />
+            <Field name="stringField" size="7" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BlobConvert.BlobConvert">
+        <Position x="843" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ToBlob value="True" />
+          <to_Field>hmac_hash</to_Field>
+          <to_Mode>HEX</to_Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_hash" size="2147483647" source="BlobConvert: HEX" type="Blob" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBlobConvert" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BlobConvert.BlobConvert">
+        <Position x="921" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ToBlob value="False" />
+          <from_Field>hmac_hash</from_Field>
+          <from_Mode>Base64</from_Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>convert to base64 or hex</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_hash" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBlobConvert" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxRPluginGui.R">
+        <Position x="657" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript><![CDATA[the_metadata <- read.Alteryx("#1")
+string <- as.character(the_metadata[,c(1)])
+key <- as.character(the_metadata[,c(2)])
+#id <- as.character(the_metadata[,c(3)])
+
+count_metadata <- read.Alteryx("#2")
+count <- as.integer(count_metadata[[1]])
+
+print(count)
+
+algorithm <- "%Question.algorithm%"
+
+if (count == 0) {
+
+	output_data <- data.frame(hmac_hash = string)
+	#output_data <- cbind(output_data, id)
+	output_data <- cbind(output_data)
+
+} else {
+
+	library(digest)
+	hmac_output <- mapply(hmac, key, string, algorithm)
+	
+	output_data <- data.frame(hmac_hash = hmac_output)
+	#output_data <- cbind(output_data, id)
+	output_data <- cbind(output_data)
+
+}
+
+write.Alteryx(output_data, 3)
+]]></RScript>
+          <UseFullUpdate value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Rtool</Name>
+          <AnnotationText>use R digest package (included with predictive install) to do HMAC encryption</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="hmac_hash" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="471" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <SelectFields>
+            <SelectField field="stringField" selected="True" />
+            <SelectField field="keyField" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="stringField" size="7" source="Formula: iif([_CurrentField_]=null(),&quot;&quot;,[_CurrentField_])" type="String" />
+            <Field name="keyField" size="5" source="Formula: iif([_CurrentField_]=null(),&quot;&quot;,[_CurrentField_])" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings>
+        <Position x="567" y="321" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="849" y="465" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="FIND" selected="True" />
+            <SelectField field="REPL" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="579" y="465" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>unicode_num</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>unicode_num &lt;= 255</Expression_Cond>
+          <Expression_Loop>unicode_num + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>generate list of characters to percent encode</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="663" y="465" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="FIND" type="String" size="64" expression="CharFromInt(toNumber([unicode_num]))" />
+            <FormulaField field="REPL" type="String" size="64" expression="'%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText />
+          <DefaultAnnotationText>FIND=CharFromInt(toNumber([unicode_num]))
+REPL='%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,"0"))</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="753" y="465" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>not(regex_match([FIND],'[A-Za-z0-9]'))
+
+and
+
+("%Question.output_base64%"="True" and "%Question.percentEncode%"="True")</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText />
+          <DefaultAnnotationText>not(regex_match([FIND],'[A-Za-z0-9]'))
+
+and
+
+("%Question.outp...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="unicode_num" type="Int32" />
+            <Field name="FIND" size="64" source="Formula: CharFromInt(toNumber([unicode_num]))" type="String" />
+            <Field name="REPL" size="64" source="Formula: '%'+Uppercase(PadLeft(IntToHex([unicode_num]),2,&quot;0&quot;))" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.FindReplace.FindReplace">
+        <Position x="1047" y="321" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldFind>hmac_hash</FieldFind>
+          <FieldSearch>FIND</FieldSearch>
+          <ReplaceFoundField>REPL</ReplaceFoundField>
+          <FindMode>FindAny</FindMode>
+          <NoCase value="False" />
+          <MatchWholeWord value="False" />
+          <ReplaceMode>Replace</ReplaceMode>
+          <ReplaceMultipleFound value="True" />
+          <ReplaceAppendFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>replace characters for percent encoding</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_hash" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFindReplace" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JoinMultiple.JoinMultiple">
+        <Position x="1335" y="201" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JoinByRecPos value="True" />
+          <OutputJoinOnly value="False" />
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>join back on original fields</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="key" size="5" source="TextInput:" type="String" />
+            <Field name="string" size="7" source="TextInput:" type="String" />
+            <Field name="key5" size="5" source="TextInput:" type="String" />
+            <Field name="field1" size="5" source="TextInput:" type="String" />
+            <Field name="field3" source="TextInput:" type="Int16" />
+            <Field name="hmac_sha1_" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoinMultiple" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+        <Position x="1047" y="57" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>outputFieldName</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1143" y="321" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="hmac_hash" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_hash" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+        <Position x="1239" y="321" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RenameMode>Formula</RenameMode>
+          <Fields orderChanged="False">
+            <Field name="hmac_hash" />
+            <Field name="*Unknown" />
+          </Fields>
+          <Expression>"%Question.outputFieldName%"</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>rename output field to user specified value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_sha1_" size="2147483647" source="BlobConvert: Base64" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1431" y="201" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output23</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+        <Position x="519" y="63" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>algorithm</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+        <Position x="675" y="57" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>output_base64</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+        <Position x="939" y="57" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>output_hex</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="783" y="165" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+        <Position x="777" y="57" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>percentEncode</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+        <Position x="369" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldType>Text</FieldType>
+          <Fields orderChanged="False">
+            <Field name="keyField" />
+            <Field name="stringField" />
+            <Field name="*Unknown" />
+          </Fields>
+          <CopyOutput value="False" />
+          <Expression>iif([_CurrentField_]=null(),"",[_CurrentField_])</Expression>
+          <ChangeFieldType value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>replace nulls with empty strings</AnnotationText>
+          <DefaultAnnotationText>iif([_CurrentField_]=null(),"",[_CurrentField_])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="keyField" size="5" source="Formula: iif([_CurrentField_]=null(),&quot;&quot;,[_CurrentField_])" type="String" />
+            <Field name="stringField" size="7" source="Formula: iif([_CurrentField_]=null(),&quot;&quot;,[_CurrentField_])" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+        <Position x="261" y="159" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+        <Position x="1047" y="159" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="759" y="279" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="hmac_hash" type="V_WString" size="1073741823" expression="padleft([hmac_hash],tonumber(regex_replace(&quot;%Question.algorithm%&quot;,&quot;\D&quot;,&quot;&quot;))/4,&quot;0&quot;)" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText />
+          <DefaultAnnotationText>hmac_hash=padleft([hmac_hash],tonumber(regex_replace("%Questi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hmac_hash" size="1073741823" source="Formula: padleft([hmac_hash],tonumber(regex_replace(&quot;sha1&quot;,&quot;\D&quot;,&quot;&quot;))/4,&quot;0&quot;)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection Wireless="True">
+      <Origin ToolID="2" Connection="Question" />
+      <Destination ToolID="3" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="2" Connection="Question" />
+      <Destination ToolID="4" Connection="Question Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection name="string">
+      <Origin ToolID="3" Connection="Question" />
+      <Destination ToolID="37" Connection="Question" />
+    </Connection>
+    <Connection name="key">
+      <Origin ToolID="4" Connection="Question" />
+      <Destination ToolID="37" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="7" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="31" Connection="Action" />
+      <Destination ToolID="9" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="18" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="18" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output3" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="13" Connection="Output9" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="13" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection name="fieldName">
+      <Origin ToolID="20" Connection="Question" />
+      <Destination ToolID="38" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Targets" />
+    </Connection>
+    <Connection name="base64">
+      <Origin ToolID="28" Connection="Question" />
+      <Destination ToolID="31" Connection="Question" />
+    </Connection>
+    <Connection name="hex">
+      <Origin ToolID="29" Connection="Question" />
+      <Destination ToolID="31" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="False" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>stringField</Name>
+        <Value>string</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>keyField</Name>
+        <Value>key</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>algorithm</Name>
+        <Value>sha1</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>percentEncode</Name>
+        <Value>True</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>output_base64</Name>
+        <Value>True</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>output_hex</Name>
+        <Value>False</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>outputFieldName</Name>
+        <Value>hmac_sha1_</Value>
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>HMAC Encrypt</Name>
+      <Description>This macro will encrypt a string using a specified key with HMAC encryption (md5, sha1, crc32, sha256, sha512), converted to base64 (or hex) and percent encoded for URLs. This type of encryption is commonly used to authenticate API requests, particularly in APIs using oauth 1.0 for authentication. [Note that these are one-way hashing functions and cannot be reversed/decrypted.]</Description>
+      <RootToolName>HMAC Encrypt</RootToolName>
+      <ToolVersion>1.0</ToolVersion>
+      <ToolInDb value="False" />
+      <CategoryName>Developer</CategoryName>
+      <SearchTags>hmac, encryption, encrypt, convert, api, encoding, encode, hashing, authentication</SearchTags>
+      <Author>Mac Roach</Author>
+      <Company>Alteryx</Company>
+      <Copyright>2016</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="31" />
+              <Expression>if [base64]="True" then "Base64"
+elseif [hex]="True" then "Hex"
+else "ERROR"
+endif</Expression>
+              <Destination>9/from_Mode</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description>String and Key must be separate fields.</Description>
+              <ToolId value="37" />
+              <Expression>[string]=[key]</Expression>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description><![CDATA[Hash field name must not be empty.
+]]></Description>
+              <ToolId value="38" />
+              <Expression>[fieldName] in (Null(),"")</Expression>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Input parameters</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (2)</Description>
+              <Name>Macro Input (2)</Name>
+              <ToolId value="2" />
+            </Question>
+            <Question>
+              <Type>LabelGroup</Type>
+              <Description>Input fields</Description>
+              <Name>LabelGroup (33)</Name>
+              <ToolId value="33" />
+              <Questions>
+                <Question>
+                  <Type>ListBox</Type>
+                  <Description>String</Description>
+                  <Name>stringField</Name>
+                  <ToolId value="3" />
+                  <Multiple value="False" />
+                  <Default />
+                  <Mode>MacroField</Mode>
+                  <MacroField_InputTool value="0" />
+                  <Field_IncludeNone value="False" />
+                  <MacroField_FilterTypes>String,WString,V_String,V_WString</MacroField_FilterTypes>
+                </Question>
+                <Question>
+                  <Type>ListBox</Type>
+                  <Description>Key</Description>
+                  <Name>keyField</Name>
+                  <ToolId value="4" />
+                  <Multiple value="False" />
+                  <Default />
+                  <Mode>MacroField</Mode>
+                  <MacroField_InputTool value="0" />
+                  <Field_IncludeNone value="False" />
+                  <MacroField_FilterTypes>Bool,Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString,Date,Time,DateTime,Blob,SpatialObj</MacroField_FilterTypes>
+                </Question>
+              </Questions>
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Hashing algorithm</Description>
+              <Name>algorithm</Name>
+              <ToolId value="24" />
+              <Multiple value="False" />
+              <Default>sha1</Default>
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[md5
+sha1
+crc32
+sha256
+sha512
+]]></Manual_Values>
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (23)</Description>
+              <Name>Macro Output (23)</Name>
+              <ToolId value="23" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Output options</Description>
+          <Name>Tab (35)</Name>
+          <ToolId value="35" />
+          <Questions>
+            <Question>
+              <Type>LabelGroup</Type>
+              <Description>Encoding type</Description>
+              <Name>LabelGroup (34)</Name>
+              <ToolId value="34" />
+              <Questions>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>base64</Description>
+                  <Name>output_base64</Name>
+                  <ToolId value="28" />
+                  <Questions>
+                    <Question>
+                      <Type>BooleanGroup</Type>
+                      <Description>Percent encode value (eg, for URLs)</Description>
+                      <Name>percentEncode</Name>
+                      <ToolId value="32" />
+                      <Questions />
+                      <Default value="True" />
+                      <Collapsable value="False" />
+                    </Question>
+                  </Questions>
+                  <Default value="True" />
+                  <Collapsable value="True" />
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>hex</Description>
+                  <Name>output_hex</Name>
+                  <ToolId value="29" />
+                  <Questions />
+                  <Default value="False" />
+                  <Collapsable value="False" />
+                </Question>
+              </Questions>
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Hash field name</Description>
+              <Name>outputFieldName</Name>
+              <ToolId value="20" />
+              <Default>hmac_hash</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
